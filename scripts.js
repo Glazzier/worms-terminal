@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("input");
   const output = document.getElementById("output");
   let username = "user"; // Variable para almacenar el nombre de usuario
+  let currentDirectory = ""; // Variable para almacenar el directorio actual
 
   input.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
@@ -13,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function executeCommand(command) {
     const outputLine = document.createElement("div");
-    outputLine.innerHTML = `<span class="prompt">${username}@terminal:~$</span> ${command}`;
+    outputLine.innerHTML = `<span class="prompt">${username}@terminal:${currentDirectory}$</span> ${command}`;
     output.appendChild(outputLine);
 
     const [cmd, ...args] = command.split(" ");
@@ -46,6 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
       case "help":
         showHelp();
+        break;
+      case "cd":
+        changeDirectory(args[0] || "");
+        break;
+      case "view-content":
+        viewContent(args[0]);
         break;
       default:
         appendOutput(`command not found: ${command}`);
@@ -100,7 +107,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // Update prompt
     const prompts = document.querySelectorAll(".prompt");
     prompts.forEach((prompt) => {
-      prompt.innerHTML = `${username}@terminal:~$`;
+      prompt.innerHTML = `${username}@terminal:${currentDirectory}$`;
+    });
+  }
+
+  function viewContent() {
+    appendOutput(`Current directory: ${currentDirectory}`);
+    appendOutput("Content:");
+    const files = ["file1.txt", "file2.txt", "file3.txt"];
+    files.forEach((file) => {
+      appendOutput(file);
     });
   }
 
@@ -140,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
         description: "Calculate a mathematical operation",
       },
       { command: "help", description: "Show this help message" },
+      { command: "cd <directory>", description: "Change current directory" }, // Agregamos el comando cd al menú de ayuda
     ];
 
     const longestCommandLength = Math.max(
@@ -157,5 +174,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const outputLine = document.createElement("div");
     outputLine.textContent = text;
     output.appendChild(outputLine);
+  }
+
+  function changeDirectory(directory) {
+    // Si no se especifica un directorio, mostramos un mensaje de uso
+    if (!directory) {
+      appendOutput("usage: cd <directory>");
+      return;
+    }
+
+    // Simulamos que solo se puede acceder a la carpeta "files"
+    if (directory === "files") {
+      currentDirectory = `/${directory}`;
+      appendOutput(`Changed directory to ${currentDirectory}`);
+    } else {
+      appendOutput(`Directory not found: ${directory}`);
+    }
+
+    // Actualizamos el prompt
+    const prompts = document.querySelectorAll(".prompt");
+    prompts.forEach((prompt) => {
+      prompt.innerHTML = `${username}@terminal:${currentDirectory}$`;
+    });
   }
 });
