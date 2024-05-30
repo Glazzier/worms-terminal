@@ -11,14 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.key === "Enter") {
       const command = input.value.trim();
       input.value = "";
-      output.innerHTML += `<div>> ${command}</div>`;
 
       // Añadir el comando al historial
       commandHistory.push(command);
       historyIndex = commandHistory.length - 1;
 
+      output.innerHTML += `<div class="new-line">> ${command}</div>`;
+
       const result = await executeCommand(command);
-      output.innerHTML += `<div>${result}</div>`;
+      output.innerHTML += `<div class="new-line">${result}</div>`;
       output.scrollTop = output.scrollHeight;
     } else if (event.key === "ArrowUp") {
       // Evitar que el cursor se mueva al principio del campo de entrada

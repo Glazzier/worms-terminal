@@ -1,0 +1,60 @@
+{
+  "commands": [
+    {
+      "name": "calc",
+      "description": "Realiza cálculos aritméticos simples."
+    },
+    {
+      "name": "changeuser",
+      "description": "Cambia el usuario actual."
+    },
+    {
+      "name": "check-commands",
+      "description": "Prueba todos los comandos y muestra el resultado."
+    },
+    {
+      "name": "clear",
+      "description": "Limpia la pantalla de la terminal y mueve el cursor al principio."
+    },
+    {
+      "name": "cls",
+      "description": "Limpia la pantalla de la terminal."
+    },
+    {
+      "name": "datetime",
+      "description": "Muestra la fecha y hora actuales."
+    },
+    {
+      "name": "echo",
+      "description": "Muestra un mensaje en la pantalla."
+    },
+    {
+      "name": "help",
+      "description": "Proporciona información sobre los comandos disponibles."
+    },
+    {
+      "name": "reminder",
+      "description": "Establece un recordatorio."
+    },
+    {
+      "name": "search",
+      "description": "Realiza una búsqueda en línea."
+    },
+    {
+      "name": "test-performance",
+      "description": "Prueba el rendimiento de todos los comandos disponibles."
+    },
+    {
+      "name": "timer",
+      "description": "Establece un temporizador."
+    },
+    {
+      "name": "weather",
+      "description": "Muestra el pronóstico del tiempo para una ciudad."
+    },
+    {
+      "name": "whoami",
+      "description": "Muestra el usuario actual."
+    }
+  ]
+}

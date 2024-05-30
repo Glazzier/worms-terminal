@@ -11,58 +11,89 @@ body {
 
 .terminal {
   background-color: #1a1a1a;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 600px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 40px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .terminal h1 {
   margin-top: 0;
-  font-size: 24px;
+  font-size: 32px;
   text-align: center;
+  background-image: linear-gradient(45deg, #4caf50, #ff9800);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 5s linear infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .version {
-  color: #4caf50; /* Color verde para la versión */
+  font-size: 16px;
 }
 
 #output {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   overflow-y: auto;
-  max-height: 300px;
+  max-height: 400px;
 }
 
 #input {
   width: calc(100% - 22px);
-  padding: 10px;
+  padding: 15px;
   background: #333;
   color: #ffffff;
   border: none;
   outline: none;
-  font-size: 16px;
-  border-radius: 5px;
+  font-size: 18px;
+  border-radius: 8px;
   margin: 0;
+  transition: background-color 0.3s ease;
 }
 
 #input:focus {
   background: #444;
 }
 
-.terminal div {
-  line-height: 1.5;
+.new-line {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .terminal div:first-child {
   color: #4caf50; /* Color para los comandos */
-}
-
-.help-command {
   font-weight: bold;
-}
-
-.help-description {
-  margin-left: 10px;
-  color: #ccc;
 }
