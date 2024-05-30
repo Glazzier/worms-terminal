@@ -1,49 +1,123 @@
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("input");
   const output = document.getElementById("output");
+  const themeSelect = document.getElementById("theme-select");
+  const menuIcon = document.getElementById("menu-icon");
 
-  // Array para almacenar los comandos utilizados anteriormente
-  let commandHistory = [];
-  // Índice para mantener el seguimiento del comando actual en el historial
+  let commandHistory = JSON.parse(localStorage.getItem("commandHistory")) || [];
   let historyIndex = -1;
+
+  function updateCommandHistory() {
+    localStorage.setItem("commandHistory", JSON.stringify(commandHistory));
+  }
 
   input.addEventListener("keydown", async (event) => {
     if (event.key === "Enter") {
-      const command = input.value.trim();
-      input.value = "";
+      if (input.parentNode.querySelector(".suggestion")) {
+        event.preventDefault();
+        input.value = input.parentNode.querySelector(".suggestion").textContent;
+        clearSuggestions();
+        input.focus();
+      } else {
+        const command = input.value.trim();
+        input.value = "";
+        output.innerHTML += `<div class="new-line">> ${command}</div>`;
 
-      // Añadir el comando al historial
-      commandHistory.push(command);
-      historyIndex = commandHistory.length - 1;
+        commandHistory.push(command);
+        updateCommandHistory();
+        historyIndex = commandHistory.length - 1;
 
-      output.innerHTML += `<div class="new-line">> ${command}</div>`;
-
-      const result = await executeCommand(command);
-      output.innerHTML += `<div class="new-line">${result}</div>`;
-      output.scrollTop = output.scrollHeight;
+        const result = await executeCommand(command);
+        output.innerHTML += `<div class="new-line">${result}</div>`;
+        output.scrollTop = output.scrollHeight;
+      }
     } else if (event.key === "ArrowUp") {
-      // Evitar que el cursor se mueva al principio del campo de entrada
       event.preventDefault();
 
-      // Mostrar el comando anterior en el historial
       if (historyIndex >= 0) {
         input.value = commandHistory[historyIndex];
         historyIndex--;
       }
     } else if (event.key === "ArrowDown") {
-      // Evitar que el cursor se mueva al final del campo de entrada
       event.preventDefault();
 
-      // Mostrar el comando siguiente en el historial
       if (historyIndex < commandHistory.length - 1) {
         historyIndex++;
         input.value = commandHistory[historyIndex];
       } else {
-        // Si no hay más comandos siguientes, limpiar el campo de entrada
         input.value = "";
+      }
+    } else if (event.key === "Tab") {
+      event.preventDefault();
+      const suggestions = input.parentNode.querySelectorAll(".suggestion");
+      if (suggestions.length > 0) {
+        suggestions[0].focus();
       }
     }
   });
+
+  input.addEventListener("input", () => {
+    const currentValue = input.value.trim();
+    const suggestions = getSuggestions(currentValue);
+    showSuggestions(suggestions);
+  });
+
+  themeSelect.addEventListener("change", () => {
+    const selectedTheme = themeSelect.value;
+    document.getElementById("css-link").href = selectedTheme;
+  });
+
+  menuIcon.addEventListener("click", () => {
+    themeSelect.classList.toggle("show");
+  });
+
+  function getSuggestions(currentValue) {
+    return [
+      "calc",
+      "changeuser",
+      "check-commands",
+      "clear",
+      "datetime",
+      "echo",
+      "help",
+      "reminder",
+      "search",
+      "test-performance",
+      "timer",
+      "weather",
+      "whoami",
+    ].filter((command) => command.startsWith(currentValue));
+  }
+
+  function showSuggestions(suggestions) {
+    clearSuggestions();
+    suggestions.forEach((command) => {
+      const suggestionElement = document.createElement("div");
+      suggestionElement.textContent = command;
+      suggestionElement.classList.add("suggestion");
+      suggestionElement.tabIndex = 0;
+      suggestionElement.addEventListener("click", () => {
+        input.value = command;
+        clearSuggestions();
+        input.focus();
+      });
+      suggestionElement.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          input.value = command;
+          clearSuggestions();
+          input.focus();
+        }
+      });
+      input.parentNode.appendChild(suggestionElement);
+    });
+  }
+
+  function clearSuggestions() {
+    const suggestionElements = document.querySelectorAll(".suggestion");
+    suggestionElements.forEach((element) => {
+      element.parentNode.removeChild(element);
+    });
+  }
 
   async function executeCommand(command) {
     const [cmd, ...args] = command.split(" ");

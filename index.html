@@ -4,13 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Worms Terminal</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="style2.css" />
   </head>
   <body>
     <div class="terminal">
-      <h1>Worms Terminal - Phase Alpha <span class="version">v0.1.1</span></h1>
+      <div class="menu-toggle" onclick="toggleMenu()">
+        <div class="menu-bar"></div>
+        <div class="menu-bar"></div>
+        <div class="menu-bar"></div>
+      </div>
+      <h1>Worms Terminal - Phase Alpha <span class="version">v0.1.2</span></h1>
       <div id="output"></div>
       <input type="text" id="input" autofocus />
     </div>

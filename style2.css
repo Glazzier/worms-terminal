@@ -1,0 +1,119 @@
+body {
+  background-color: #282c34;
+  color: #abb2bf;
+  font-family: Consolas, monospace;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.terminal {
+  background-color: #3e4451;
+  padding: 40px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.terminal h1 {
+  margin-top: 0;
+  font-size: 32px;
+  text-align: center;
+  color: #61afef;
+}
+
+.version {
+  font-size: 16px;
+  color: #61afef;
+}
+
+#output {
+  margin-bottom: 20px;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+#input {
+  width: calc(100% - 22px);
+  padding: 15px;
+  background: #4b5263;
+  color: #abb2bf;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  border-radius: 8px;
+  margin: 0;
+  transition: background-color 0.3s ease;
+}
+
+#input:focus {
+  background: #5c6370;
+}
+
+.new-line {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.terminal div:first-child {
+  color: #61afef;
+  font-weight: bold;
+}
+
+/* Estilos para el menú desplegable */
+
+.theme-select-container {
+  position: relative;
+}
+
+.theme-select {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  background-color: #282c34;
+  border: 1px solid #61afef;
+  border-radius: 5px;
+  padding: 5px;
+  display: none;
+  z-index: 1;
+}
+
+.theme-select.show {
+  display: block;
+}
+
+.theme-select select {
+  background-color: #282c34;
+  color: #abb2bf;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 5px;
+}
+
+.theme-select select:focus {
+  outline: none;
+}

@@ -17,6 +17,39 @@ body {
   max-width: 800px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   animation: fadeIn 0.5s ease;
+  position: relative;
+}
+
+.menu-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.menu-bar {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 5px 0;
+  transition: transform 0.3s ease;
+}
+
+.menu-toggle.open .menu-bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.open .menu-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.open .menu-bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.menu-toggle.open {
+  z-index: 9999;
 }
 
 @keyframes fadeIn {
@@ -94,6 +127,6 @@ body {
 }
 
 .terminal div:first-child {
-  color: #4caf50; /* Color para los comandos */
+  color: #4caf50;
   font-weight: bold;
 }
