@@ -1,8 +1,12 @@
+import {
+  getSuggestions,
+  showSuggestions,
+  clearSuggestions,
+} from "./autocomplete.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("input");
   const output = document.getElementById("output");
-  const themeSelect = document.getElementById("theme-select");
-  const menuIcon = document.getElementById("menu-icon");
 
   let commandHistory = JSON.parse(localStorage.getItem("commandHistory")) || [];
   let historyIndex = -1;
@@ -59,65 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
   input.addEventListener("input", () => {
     const currentValue = input.value.trim();
     const suggestions = getSuggestions(currentValue);
-    showSuggestions(suggestions);
+    showSuggestions(input, suggestions);
   });
-
-  themeSelect.addEventListener("change", () => {
-    const selectedTheme = themeSelect.value;
-    document.getElementById("css-link").href = selectedTheme;
-  });
-
-  menuIcon.addEventListener("click", () => {
-    themeSelect.classList.toggle("show");
-  });
-
-  function getSuggestions(currentValue) {
-    return [
-      "calc",
-      "changeuser",
-      "check-commands",
-      "clear",
-      "datetime",
-      "echo",
-      "help",
-      "reminder",
-      "search",
-      "test-performance",
-      "timer",
-      "weather",
-      "whoami",
-    ].filter((command) => command.startsWith(currentValue));
-  }
-
-  function showSuggestions(suggestions) {
-    clearSuggestions();
-    suggestions.forEach((command) => {
-      const suggestionElement = document.createElement("div");
-      suggestionElement.textContent = command;
-      suggestionElement.classList.add("suggestion");
-      suggestionElement.tabIndex = 0;
-      suggestionElement.addEventListener("click", () => {
-        input.value = command;
-        clearSuggestions();
-        input.focus();
-      });
-      suggestionElement.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-          input.value = command;
-          clearSuggestions();
-          input.focus();
-        }
-      });
-      input.parentNode.appendChild(suggestionElement);
-    });
-  }
-
-  function clearSuggestions() {
-    const suggestionElements = document.querySelectorAll(".suggestion");
-    suggestionElements.forEach((element) => {
-      element.parentNode.removeChild(element);
-    });
-  }
 
   async function executeCommand(command) {
     const [cmd, ...args] = command.split(" ");

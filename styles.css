@@ -1,6 +1,6 @@
 body {
-  background-color: #232323;
-  color: #fff;
+  background-color: #1e1e1e; /* Fondo oscuro */
+  color: #e0e0e0; /* Color de texto claro */
   font-family: Consolas, monospace;
   margin: 0;
   display: flex;
@@ -10,46 +10,14 @@ body {
 }
 
 .terminal {
-  background-color: #1a1a1a;
+  background-color: #282828; /* Fondo oscuro más claro para la terminal */
   padding: 40px;
   border-radius: 20px;
   width: 90%;
   max-width: 800px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  animation: fadeIn 0.5s ease;
+  animation: fadeIn 0.5s ease; /* Animación de entrada suave */
   position: relative;
-}
-
-.menu-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.menu-bar {
-  width: 25px;
-  height: 3px;
-  background-color: #fff;
-  margin: 5px 0;
-  transition: transform 0.3s ease;
-}
-
-.menu-toggle.open .menu-bar:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-}
-
-.menu-toggle.open .menu-bar:nth-child(2) {
-  opacity: 0;
-}
-
-.menu-toggle.open .menu-bar:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-}
-
-.menu-toggle.open {
-  z-index: 9999;
 }
 
 @keyframes fadeIn {
@@ -63,13 +31,17 @@ body {
 
 .terminal h1 {
   margin-top: 0;
-  font-size: 32px;
+  font-size: 36px;
   text-align: center;
-  background-image: linear-gradient(45deg, #4caf50, #ff9800);
+  background-image: linear-gradient(
+    45deg,
+    #00bcd4,
+    #4caf50
+  ); /* Gradiente de colores para el título */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientShift 5s linear infinite;
+  animation: gradientShift 5s linear infinite; /* Gradiente cambiante */
 }
 
 @keyframes gradientShift {
@@ -97,22 +69,22 @@ body {
 #input {
   width: calc(100% - 22px);
   padding: 15px;
-  background: #333;
-  color: #ffffff;
+  background: #333; /* Fondo oscuro para el input */
+  color: #ffffff; /* Color de texto claro */
   border: none;
   outline: none;
   font-size: 18px;
   border-radius: 8px;
   margin: 0;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease; /* Transición de color de fondo */
 }
 
 #input:focus {
-  background: #444;
+  background: #444; /* Fondo oscuro ligeramente más claro cuando está enfocado */
 }
 
 .new-line {
-  animation: slideIn 0.3s ease;
+  animation: slideIn 0.3s ease; /* Animación de entrada suave para las líneas de salida */
 }
 
 @keyframes slideIn {
@@ -127,6 +99,6 @@ body {
 }
 
 .terminal div:first-child {
-  color: #4caf50;
+  color: #4caf50; /* Verde lima para el primer elemento dentro de la terminal */
   font-weight: bold;
 }
